@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Signup Page</title>
+    <style>
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background-color: #f2f2f2;
+            opacity: 0;
+            transition: opacity .5s ease-in-out;
+        }
+
+        body.loaded {
+            opacity: 1;
+        }
+
+        .main {
+            margin-left: 200px;
+        }
+
+        form {
+            width: 300px;
+            padding: 16px;
+            background-color: white;
+            margin: 0 auto;
+            margin-top: -10px;
+            border: 1px solid black;
+            border-radius: 4px;
+        }
+
+        h2 {
+            text-align: center;
+            padding-top: 100px;
+        }
+
+        input[type=text], input[type=password], input[type=email], select {
+            width: 100%;
+            padding: 12px 20px;
+            margin: 8px 0;
+            display: inline-block;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        input[type=submit] {
+            width: 100%;
+            background-color: #4CAF50;
+            color: white;
+            padding: 14px 20px;
+            margin: 8px 0;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        input[type=submit]:hover {
+            background-color: #45a049;
+        }
+
+        .login-link {
+            display: block;
+            text-align: center;
+            margin-top: 10px;
+            color: #1da1f2;
+            transition:.5s ease;
+        }
+
+        .login-link:hover {
+            color: #0080ff;
+        }
+
+        .login-link > a {
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        /* Style for displaying error message */
+        #signup-error {
+            color: red;
+            text-align: center;
+        }
+    </style>
+    <script>
+        window.addEventListener('load', function () {
+            document.body.classList.add('loaded');
+        });
+
+    async function handleSignupError() {
+        const errorDiv = document.getElementById('signup-error');
+        const name = document.getElementById('name').value;
+        const prn = document.getElementById('prn').value;
+        const email = document.getElementById('email').value;
+
+        // Simulate a check for duplicate values
+        const isDuplicate = await checkForDuplicate(name, prn, email);
+
+        if (isDuplicate) {
+            errorDiv.innerText = 'Credentials are already taken. Please choose another.';
+            return false; // Prevent form submission
+        }
+
+        // Clear the error message
+        errorDiv.innerText = '';
+        return true; // Allow form submission
+    }
+
+    async function checkForDuplicate(name, prn, email) {
+        // Send a request to your server to check for duplicate values
+        const response = await fetch('/check-duplicate', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ name, prn, email }),
+        });
+
+        const data = await response.json();
+        return data.isDuplicate; // Assuming your server responds with { isDuplicate: true/false }
+    }
+</script>
+
+    
+</head>
+<body>
+<div class="main">
+    <h2>Signup Form</h2>
+    <!-- Display error message -->
+    <div id="signup-error"></div>
+    <form action="/signup" method="POST" onsubmit="return handleSignupError();">
+        <label for="name">Name:</label><br>
+        <input type="text" id="name" name="name" required><br>
+
+        <label for="prn">PRN:</label><br>
+        <input type="text" id="prn" name="prn" required><br>
+
+        <label for="email">Email:</label><br>
+        <input type="email" id="email" name="email" required><br>
+
+        <label for="password">Password:</label><br>
+        <input type="password" id="password" name="password" required><br>
+
+        <label for="category">Category:</label><br>
+        <select id="category" name="category">
+            <option value="student">Student</option>
+            <option value="faculty">Faculty</option>
+            <option value="event_manager">Event Manager</option>
+        </select><br>
+
+        <input type="submit" value="Submit">
+        <p class="login-link">Already have an account? <a href="/login">Login here</a></p>
+    </form>
+</div>
+</body>
+</html>
