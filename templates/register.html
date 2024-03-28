@@ -80,59 +80,44 @@
 </head>
 
 <body>
-    <div class="container">
-        <h1>Event Registration</h1>
+    <!-- registration.html -->
 
-        <div class="event-card">
-            <!-- Event details will be dynamically populated using JavaScript -->
-            <img id="event-image" src="https://via.placeholder.com/200" alt="Event Image">
-            <h3 id="event-name">Event Name</h3>
-            <p id="event-id">Event ID: 12345</p>
-            <!-- Add more event details here as needed -->
-        </div>
+<form id="registrationForm">
+    <label for="name">Name:</label>
+    <input type="text" id="name" name="name" required><br><br>
+    <label for="email">Email:</label>
+    <input type="email" id="email" name="email" required><br><br>
+    <label for="event">Select Event:</label>
+    <select id="event" name="event">
+        <!-- Populate this dropdown with event options dynamically -->
+    </select><br><br>
+    <input type="submit" value="Register">
+</form>
 
-        <h2>Registration Form</h2>
-        <form id="registration-form">
-            <!-- Add input fields for registration details -->
-            <label for="name">Name:</label>
-            <input type="text" id="name" name="name" required><br><br>
+<div id="message"></div>
 
-            <label for="email">Email:</label>
-            <input type="email" id="email" name="email" required><br><br>
-
-            <!-- Add more fields as needed -->
-
-            <input type="submit" value="Register">
-        </form>
-    </div>
 
     <script>
-        // Retrieve event details from URL parameters
-        const urlParams = new URLSearchParams(window.location.search);
-        const eventId = urlParams.get('event_id');
-        const eventName = urlParams.get('event_name');
-        const eventImage = urlParams.get('image');
+        document.getElementById("registrationForm").addEventListener("submit", function(event) {
+    event.preventDefault(); // Prevent default form submission
 
-        // Display event details
-        document.getElementById('event-image').src = eventImage;
-        document.getElementById('event-name').textContent = eventName;
-        document.getElementById('event-id').textContent = `Event ID: ${eventId}`;
+    // Get form data
+    const formData = new FormData(this);
 
-        // Handle form submission
-        document.getElementById('registration-form').addEventListener('submit', function (event) {
-            event.preventDefault(); // Prevent default form submission
-
-            // Retrieve form data
-            const formData = new FormData(this);
-            const formDataObj = Object.fromEntries(formData.entries());
-
-            // Optionally, you can send the registration data to a server using fetch() or AJAX
-
-            // For demonstration purposes, log the registration data to the console
-            console.log('Registration Data:', formDataObj);
-
-            // You can also display a confirmation message or redirect the user to a thank you page
-        });
+    // Send registration data to server
+    fetch("/register", {
+        method: "POST",
+        body: formData
+    })
+    .then(response => response.json())
+    .then(data => {
+        // Display registration message
+        document.getElementById("message").innerText = data.message;
+    })
+    .catch(error => {
+        console.error("Error:", error);
+    });
+});
     </script>
 </body>
 

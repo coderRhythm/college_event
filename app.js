@@ -32,6 +32,7 @@ app.use(express.static(path.join(__dirname, 'templates')));
 
 // Serve static files from 'uploads' folder
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
+app.set('view engine', 'ejs');
 
 // Function to check for duplicate values
 async function checkForDuplicate(prn, email) {
@@ -73,13 +74,17 @@ app.get('/get-user-name', (req, res) => {
 
 // Routes
 app.get('/practice', (req, res) => {
-  res.sendFile(path.join(__dirname, 'templates', 'practice.html'))
+ res.render('practice')
 });
-
+// faculty
+app.get('/faculty', (req, res) => {
+  res.sendFile(path.join(__dirname, 'templates', 'faculty.html'))
+});
 app.get('/signup', (req, res) => {
   res.sendFile(path.join(__dirname, 'templates', 'signup.html'));
 });
-
+app.get('/practice1', (req, res) => {
+ res.render('practice1')});
 // Check for duplicate values endpoint
 app.post('/check-duplicate', async (req, res) => {
   const { prn, email } = req.body;
@@ -135,7 +140,7 @@ app.post('/signup', async (req, res) => {
 app.get('/login', (req, res) => {
   res.sendFile(path.join(__dirname, 'templates', 'login.html'));
 });
-
+// Login endpoint
 app.post('/login', (req, res) => {
   const { uname, psw } = req.body;
 
@@ -151,34 +156,52 @@ app.post('/login', (req, res) => {
     if (results.length > 0) {
       const user = results[0];
 
-      // Fetch the category from the users table based on the provided email
-      const categoryQuery = 'SELECT category FROM users WHERE email = ?';
-      db.query(categoryQuery, [uname], (categoryErr, categoryResults) => {
-        if (categoryErr) {
-          console.error(categoryErr);
+      // Fetch the user's name and category based on the provided username
+      const userInfoQuery = 'SELECT name, category,email FROM users WHERE email = ?';
+      db.query(userInfoQuery, [uname], (userInfoErr, userInfoResults) => {
+        if (userInfoErr) {
+          console.error(userInfoErr);
           return res.send('Error during login. Please try again.');
         }
 
-        // Check if results contain the category
-        if (categoryResults.length > 0) {
-          const category = categoryResults[0].category;
+        // Check if results contain the user's name and category
+        if (userInfoResults.length > 0) {
+          const { name, category,email } = userInfoResults[0];
 
-          // Redirect to the corresponding category page
+          // Redirect to the corresponding category page with the user's name as a query parameter
           switch (category) {
             case 'student':
-              res.redirect('/student');
+              const fetchEventsSql = 'SELECT * FROM events';
+              db.query(fetchEventsSql, (fetchEventsErr, events) => {
+                if (fetchEventsErr) {
+                  console.error(fetchEventsErr);
+                  return res.send('Error fetching events. Please try again.');
+                }
+
+                // Render the student template with the user's name and events data
+                res.render('practice', { userName: name,email: email, category: category, events: events });
+              });
               break;
             case 'faculty':
-              res.redirect('/faculty'); // You need to create a faculty page
+              const fetchEventsSql1 = 'SELECT * FROM events';
+              db.query(fetchEventsSql1, (fetchEventsErr, events) => {
+                if (fetchEventsErr) {
+                  console.error(fetchEventsErr);
+                  return res.send('Error fetching events. Please try again.');
+                }
+
+                // Render the student template with the user's name and events data
+                res.render('faculty', { userName: name,email: email, category: category, events: events });
+              });
               break;
             case 'event_manager':
-              res.redirect('/event-manager'); // You need to create an event manager page
+              res.redirect(`/event-manager?name=${name}`);
               break;
             default:
               res.send('Invalid category.');
           }
         } else {
-          res.send('Category not found for the user.');
+          res.send('User information not found.');
         }
       });
     } else {
@@ -291,6 +314,67 @@ app.get('/get-events', (req, res) => {
 app.get('/student', (req, res) => {
   res.sendFile(path.join(__dirname, 'templates', 'practice.html'));
 });
+
+
+app.get('/register', (req, res) => {
+  res.sendFile(path.join(__dirname, 'templates', 'register.html'));
+});
+// Assuming you have routes set up with Express
+app.post('/register', (req, res) => {
+  const { name, email, category, event_id, event_name } = req.body;
+
+  // Insert registration details into the registrations table
+  const insertRegistrationSql = 'INSERT INTO registrations (name, email, category, event_id, event_name) VALUES (?, ?, ?, ?, ?)';
+  db.query(insertRegistrationSql, [name, email, category, event_id, event_name], (err, result) => {
+      if (err) {
+          console.error('Error registering for event:', err);
+          return res.status(500).json({ success: false, message: 'Error registering for event. Please try again.' });
+      }
+      return res.status(200).json({ success: true, message: 'Registration successful.' });
+  });
+});
+
+
+
+app.get('/users', (req, res) => {
+  let sql = 'SELECT * FROM users ORDER BY category';
+  db.query(sql, (err, results) => {
+      if(err) throw err;
+      res.render('users', { users: results });
+  });
+});
+
+
+
+// showing events
+app.get('/eventstable', (req, res) => {
+  let sql = 'SELECT * FROM events';
+  db.query(sql, (err, results) => {
+      if(err) throw err;
+      res.render('events', { events: results });
+  });
+});
+
+// Route to handle event registration
+app.post('/register-event', (req, res) => {
+  // Retrieve registration information from the request body
+  const userName = req.body.userName;
+  const eventId = req.body.eventId;
+  const eventName = req.body.eventName;
+
+  // You can add confirmation logic here, for example:
+  // If user confirms registration (assuming it's passed in the request body as 'confirmation')
+  const confirmation = req.body.confirmation;
+  if (confirmation === 'yes') {
+      // Perform registration logic here (insert registration record into the database, etc.)
+      // Once registration is successful, you can redirect the user or send a response
+      res.send('Registration successful!');
+  } else {
+      // Handle if user declines registration
+      res.send('Registration declined.');
+  }
+});
+
 
 // Server
 app.listen(PORT, () => {
