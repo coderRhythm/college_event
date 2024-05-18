@@ -65,6 +65,7 @@
         .navbar-right a {
             text-decoration: none;
             color: #000000;
+            text-transform: capitalize;
             font-weight: bold;
             font-size: 16px;
             transition: color 0.3s;
@@ -199,11 +200,11 @@
         }
         .about-cards {
             display: grid;
-            grid-template-columns: 300px 300px;
+            grid-template-columns: 300px 300px 300px;
             flex-wrap: nowrap;
             gap: 20px;
             padding: 50px;
-            padding-left: 210px;
+            /* padding-left: 210px; */
         }
 
         .about-card {
@@ -431,6 +432,7 @@
         /* Rules section styles */
 #rules {
     padding: 100px;
+    text-transform: capitalize;
     background-color: #f9f9f9;
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
     position: relative;
@@ -504,14 +506,20 @@
                 <li><a href="#home">Home</a></li>
                 <li><a href="#about">About</a></li>
                 <li><a href="#events">Event Listing</a></li>
-                <li><a href="#rules">Student Rules</a></li>
-                <button>dashboard</button>
+                <li><a href="#rules">faculty Rules</a></li>
+                <form id="dashboard-form" action="/dashboard" method="post"> <!-- Use method="get" to pass the email via query string -->
+                    <input type="hidden" name="email" value="<%= email %>"> <!-- Include the email as a hidden input -->
+                    <input type="hidden" name="name" value="<%= userName %>">
+                    <button type="submit" class="dashboard-button">Go to Dashboard</button>
+                </form>
+                
             </ul>
         </div>
     </nav>
     
 
-    <section id="home"> <h2 id="user-name">Welcome, Prof.  <%= userName %>!<br> in our Faculty Portal!</h2> <div class="container"> <div class="home-content"> <div class="home-image"> <img src="image/eventbg.jpeg" alt="Image"> </div> <div class="home-text"> <p>Dear students, welcome to our online portal where you can access all the information you need about upcoming events, student rules, and much more. Make sure to explore all the sections and stay updated!</p> <p>If you have any questions or need assistance, don't hesitate to contact us.</p> <div class="social-links"> <a href="#" class="social-icon"><i class="fa fa-facebook"></i></a> <a href="#" class="social-icon"><i class="fa fa-twitter"></i></a> <a href="#" class="social-icon"><i class="fa fa-instagram"></i></a> </div> </div> </div> </div> <div class="cta-buttons"> <a href="#events" class="register-button">View Events</a> <a href="#about" class="register-button">Learn More About Us</a> </div> </section>
+    <section id="home"> 
+        <h2 id="user-name">Welcome, Prof.  <%= userName %>!<br> in our Faculty Portal!</h2> <div class="container"> <div class="home-content"> <div class="home-image"> <img src="image/eventbg.jpeg" alt="Image"> </div> <div class="home-text"> <p>Dear students, welcome to our online portal where you can access all the information you need about upcoming events, student rules, and much more. Make sure to explore all the sections and stay updated!</p> <p>If you have any questions or need assistance, don't hesitate to contact us.</p> <div class="social-links"> <a href="#" class="social-icon"><i class="fa fa-facebook"></i></a> <a href="#" class="social-icon"><i class="fa fa-twitter"></i></a> <a href="#" class="social-icon"><i class="fa fa-instagram"></i></a> </div> </div> </div> </div> <div class="cta-buttons"> <a href="#events" class="register-button">View Events</a> <a href="#about" class="register-button">Learn More About Us</a> </div> </section>
     
     <hr>
 
@@ -551,7 +559,14 @@
                         <p>Email: akarshsingh19@gmail.com</p>
                     </div>
                 </div>
-                
+                <div class="about-card">
+                    <i class="fa fa-solid fa-user"></i>
+                    <div class="about-details">
+                        <h3>pranjal khairnar</h3>
+                        <p>branch: CSE</p>
+                        <p>Email: pranjal@gmail.com</p>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
@@ -731,7 +746,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     dotsContainer.appendChild(dot);
                 });
             }
-
+            
             // Initially display all events
             filterEvents('all');
         })

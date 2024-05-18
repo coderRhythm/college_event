@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f2f2f2;
+        }
+
+        header {
+            background-color: #333;
+            color: #fff;
+            padding: 20px;
+            text-align: center;
+        }
+
+        main {
+            padding: 20px;
+            text-align: center;
+        }
+
+        h1 {
+            margin-top: 0;
+        }
+
+        h2 {
+            margin-top: 20px;
+            margin-bottom: 10px;
+            font-size: 24px;
+            color: #333;
+        }
+
+        .user-details {
+            background-color: #fff;
+            border: 1px solid #ddd;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-radius: 5px;
+            box-shadow: 0 4px 8px 0 rgba(0,0,0,0.1);
+            display: inline-block;
+            width: 300px;
+        }
+
+        .events {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .event-box {
+            background-color: #fff;
+            border: 1px solid #ddd;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 4px 8px 0 rgba(0,0,0,0.1);
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Welcome <%= user.name %>! This is your Dashboard</h1>
+    </header>
+
+    <main>
+        <div class="user-details">
+            <h2>User Details:</h2>
+            <p>Name: <%= user.name %></p>
+            <p>Email: <%= user.email %></p>
+        </div>
+        
+        <h2>Your registering events:</h2>
+        <div class="events">
+            <% registrations.forEach(registration => { %>
+                <div class="event-box">
+                    <h3>Event: <%= registration.event_name %></h3>
+                    <p>Category: <%= registration.category %></p>
+                    <p>Date: <%= registration.date %></p>
+                </div>
+            <% }); %>
+        </div>
+    </main>
+
+    <footer>
+        <!-- Add your footer content here -->
+    </footer>
+</body>
+</html>

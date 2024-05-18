@@ -21,7 +21,9 @@
             color: #000000; /* Changed text color to black */
             line-height: 1.6;
         }
-
+        button{
+            cursor: pointer;
+        }
         /* Navbar styles */
         .navbar {
             background-color: #ffffff;
@@ -33,7 +35,9 @@
             z-index: 1000;
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
         }
-
+        .navbar-toggle{
+            display: none;
+        }
         .container {
             width: 80%;
             margin: 0 auto;
@@ -100,6 +104,7 @@
             position: relative;
             margin-bottom: 20px;
             border-radius: 10px;
+            
         }
 
         h2 {
@@ -116,39 +121,55 @@
             color: #000000;
         }
 
-        
+        .navbar-right .signup-button {
+    display: inline-block;
+    margin-right: 20px;
+    padding: 5px 10px;
+    background-color: #390071;
+    color: #fcfcfc;
+    text-decoration: none;
+    border-radius: 5px;
+    text-transform: capitalize;
+    transition: background-color 0.3s;
+}
+
+.navbar-right .signup-button:hover {
+    background-color: #4b0082;
+}
         /* Home section styles */
-#home {
+        #home {
     background-color: #ffffff;
     color: rgb(0, 0, 0);
-    padding: 100px;
-    height: 100vh;
+    padding-top: 100px;
     margin-bottom: 20px;
     border-radius: 10px;
+    /* height: 100vh; */
 }
-#home h2{
+
+#home h2 {
     color: rgb(0, 0, 0);
+    font-size: 24px;
 }
+
 .home-content {
     display: flex;
-    /* justify-content: space-between; */
+    flex-direction: column;
     gap: 20px;
     padding: 20px;
-    align-items: center;
 }
 
 .home-image img {
-    max-width: 50%;
+    width: 100%;
     height: auto;
     border-radius: 10px;
 }
 
 .home-text {
-    max-width: 45%;
+    max-width: 100%;
 }
 
 .home-text h2 {
-    font-size: 28px;
+    font-size: 20px;
     color: rgb(229, 229, 229);
     margin-bottom: 20px;
 }
@@ -160,13 +181,13 @@
 }
 
 .cta-buttons {
-    margin-top: 50px;
+    margin-top: 30px;
     text-align: center;
 }
 
 .cta-buttons a {
     display: inline-block;
-    margin-right: 20px;
+    margin: 0 10px;
     padding: 10px 20px;
     background-color: #390071;
     color: #fcfcfc;
@@ -181,11 +202,12 @@
 
 .social-links {
     margin-top: 20px;
+    text-align: center;
 }
 
 .social-icon {
     display: inline-block;
-    margin-right: 10px;
+    margin: 0 10px;
     font-size: 24px;
     color: #0055A4;
     transition: color 0.3s;
@@ -195,316 +217,392 @@
     color: #07bae7;
 }
 
+@media (min-width: 768px) {
+    
+    .home-content {
+        /* padding-top: 300px; */
+        flex-direction: row;
+    }
 
-        /* About section styles */
-        #about {
-            /* height: 100vh; */
-            padding: 100px;
-            background-color: #f9f4f4;
-            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
-            position: relative;
-            margin-bottom: 20px;
-            border-radius: 10px;
-        }
-        #about h2{
-            color: rgb(0, 0, 0);
-        }
-        .about-cards {
-            display: grid;
-            grid-template-columns: 300px 300px;
-            flex-wrap: nowrap;
-            gap: 20px;
-            padding: 50px;
-            padding-left: 210px;
-        }
+    .home-image img {
+        max-width: 50%;
+    }
 
-        .about-card {
-            padding: 5px;
-            width: 350px;
-            height: 200px; /* Set a fixed height */
-            background-color: #ffffff;
-            color: rgb(0, 0, 0);
-            border-radius: 10px;
-            text-align: center;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            overflow: hidden;
-            transition: transform 0.3s;
-            border: 2px solid #232323;
-        }
+    .home-text {
+        max-width: 50%;
+    }
+}
 
-        .about-card:hover {
-            transform: translateY(-5px);
-        }
-
-        .about-card i {
-           font-size: 40px;
-            border-top-left-radius: 10px;
-            border-top-right-radius: 10px;
-        }
-
-        .about-details {
-            padding: 20px;
-        }
-
-        .about-details h3 {
-            margin-bottom: 10px;
-            font-size: 20px;
-            color: #000000;
-        }
-
-        .about-details p {
-            margin-bottom: 10px;
-            font-size: 16px;
-            color: #000000;
-        }
-
-        /* Event slider styles */
-        #events{
-            height: 100vh;
-            background-color: #ffffff;
-            color: rgb(0, 0, 0);
-        }
-        .eventContainer {
-            padding-left: 100px;
-            padding-right: 100px;
-            margin-top: 100px;
-            /* text-align: center; */
-        }
-        .eventContainer h2 {
-            color: rgb(0, 0, 0);
-            /* text-align: center; */
-        }
-        .event-slider {
-            width: 100%;
-            margin: 0 auto;
-            overflow: hidden;
-            position: relative;
-        }
-
-        .event-list {
-            display: flex;
-            width: 50%;
-
-            /* justify-content: center; */
-            transition: transform 0.5s ease-in-out;
-        }
-        .card_container{
-            display: flex;
-            padding: 0 100px;
-            /* width: 100px; */
-            justify-content: space-between;
-            /* margin-right */
-        }
-
-        .event-item {
-            flex: 0 0 1230px;
-            height: 50vh;
-            width: 60%;
-            padding-left: 330px;
-            display: flex;
-            align-items: center;
-            
-            background-color: #ffffff;
-            border-radius: 10px;
-            color: rgb(0, 0, 0);
-            /* text-align: center; */
-            /* overflow: hidden; */
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            transition: transform 0.3s ease;
-            margin-bottom: 20px;
-            /* display:flex; */
-            /* flex-direction: row; */
-            /* border: 2px solid #000000; */
-        }
-
-        .event-item:hover {
-            transform: translateY(-5px);
-        }
-
-        .event-item img {
-            width: 300px;
-            padding: 20px;
-            border: 2px solid rgb(200, 199, 199);
-            box-shadow: 5px 5px 5px 5px rgb(153, 150, 146);
-            border-radius: 10%;
-            
-            height: 300px;
-            object-fit: cover;
-            /* border-radius: 10px 10px 0 0; */
-        }
-
-        .event-details {
-            padding: 20px;
-            text-align: center;
-            padding-top: 100px;
-            padding-left: 60px;
-        }
-
-        .event-details h3 {
-            margin-bottom: 10px;
-            font-size: 18px;
-            color: #000000;
-            text-transform: capitalize;
-        }
-
-        .event-details p {
-            margin-bottom: 10px;
-            font-size: 14px;
-            color: #000000;
-        }
-
-        /* Register button styles */
-        .register-button {
-            display: inline-block;
-            background-color: #0055A4;
-            color: #000000;
-            padding: 8px 16px;
-            text-decoration: none;
-            border-radius: 5px;
-            transition: background-color 0.3s;
-        }
-
-        .register-button:hover {
-            background-color: #ffd700;
-        }
-
-        /* Filter button styles */
-        .filters {
-            display: flex;
-            justify-content: center;
-            margin-bottom: 20px;
-        }
-
-        .filters button {
-            background-color: #5a45d2;
-            color: #FFFFFF;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: background-color 0.3s;
-            font-size: 16px;
-            margin: 0 10px;
-        }
-
-        .filters button:hover {
-            background-color: #3532e8;
-        }
-
-        /* Previous and Next button styles */
-        #prevBtn,
-        #nextBtn {
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            font-size: 20px;
-            color: #ffffff;
-            border: none;
-            border-radius: 50%;
-            padding: 8px;
-            cursor: pointer;
-            transition: background-color 0.3s;
-            background-color: rgba(0, 0, 0, 0.5);
-            z-index: 100;
-        }
-
-        #prevBtn:hover,
-        #nextBtn:hover {
-            background-color: rgba(0, 0, 0, 0.7);
-        }
-
-        #prevBtn {
-            left: 10px;
-        }
-
-        #nextBtn {
-            right: 10px;
-            z-index: 1000;
-        }
-
-        .slider-dots {
-            position: absolute;
-            bottom: 2px;
-            left: 50%;
-            transform: translateX(-50%);
-            z-index: 100;
-            display: flex;
-        }
-
-        .slider-dot {
-            width: 10px;
-            height: 10px;
-            background-color: #bbb;
-            border-radius: 50%;
-            display: inline-block;
-            margin: 0 5px;
-            cursor: pointer;
-        }
-
-        .slider-dot.active {
-            background-color: #0055A4;
-        }
-
-        /* Rules section styles */
-        /* Rules section styles */
-#rules {
-    padding: 100px;
-    background-color: #f9f9f9;
+       /* About section styles */
+#about {
+    /* padding: 50px; */
+    /* padding-left: 150px; */
+    background-color: #ffffff;
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
-    position: relative;
-    height: 100vh;
     margin-bottom: 20px;
+    
+    /* height: 100vh; */
     border-radius: 10px;
 }
 
-.rules-heading {
+#about h2 {
+    color: rgb(0, 0, 0);
+    text-align: center;
+}
+
+
+
+.about-card {
+    padding: 20px;
+    background-color: #ffffff;
+    color: rgb(0, 0, 0);
+    border-radius: 10px;
+    text-align: center;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    width: 100%;
+    transition: transform 0.3s;
+}
+
+.about-card:hover {
+    transform: translateY(-5px);
+}
+
+.about-card i {
+    font-size: 40px;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
+
+.about-details {
+    padding: 20px;
+}
+
+.about-details h3 {
+    margin-bottom: 10px;
+    font-size: 20px;
+    color: #000000;
+}
+
+.about-details p {
+    margin-bottom: 10px;
+    font-size: 16px;
+    color: #000000;
+}
+
+@media (min-width: 768px) {
+    .about-cards {
+        width: 100%;
+        padding: 50px;
+    }
+
+    .about-card {
+        width: 100%;
+        margin: 0 auto;
+        font-size: 10px;
+    }
+}
+#events {
+    padding: 50px 20px;
+    background-color: #ffffff;
+    color: rgb(0, 0, 0);
+    /* height: 100vh; */
+}
+
+.eventContainer {
+    margin-top: 50px;
+}
+
+.eventContainer h2 {
+    text-align: center;
+}
+
+.event-slider {
+    width: 100%;
+    margin: 0 auto;
+    overflow: hidden;
+    position: relative;
+}
+
+.event-list {
+    display: flex;
+    width: 100%;
+    transition: transform 0.5s ease-in-out;
+}
+
+.event-item {
+    flex: 0 0 100%;
+    height: auto;
+    width: 100%;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #ffffff;
+    border-radius: 10px;
+    color: rgb(0, 0, 0);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
     margin-bottom: 20px;
+}
+
+.event-item:hover {
+    transform: translateY(-5px);
+}
+
+.event-item img {
+    width: 100%;
+    max-width: 300px;
+    padding: 20px;
+    border: 2px solid rgb(200, 199, 199);
+    box-shadow: 5px 5px 5px 5px rgb(153, 150, 146);
+    border-radius: 10%;
+    height: auto;
+    object-fit: cover;
+}
+
+.event-details {
+    padding: 20px;
+    text-align: center;
+}
+
+.event-details h3 {
+    margin-bottom: 10px;
+    font-size: 18px;
+    color: #000000;
+    text-transform: capitalize;
+}
+
+.event-details p {
+    margin-bottom: 10px;
+    font-size: 14px;
+    color: #000000;
+}
+
+.register-button {
+    display: inline-block;
+    background-color: #0055A4;
+    color: #000000;
+    padding: 8px 16px;
+    text-decoration: none;
+    border-radius: 5px;
+    font-size: 20px;
+   
+    transition: background-color 0.3s;
+}
+
+.register-button:hover {
+    background-color: #ffd700;
+}
+
+.filters {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.filters button {
+    background-color: #5a45d2;
+    color: #FFFFFF;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    font-size: 16px;
+    margin: 5px;
+}
+
+.filters button:hover {
+    background-color: #3532e8;
+}
+
+#prevBtn,
+#nextBtn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 20px;
+    color: #ffffff;
+    border: none;
+    border-radius: 50%;
+    padding: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 100;
+}
+
+#prevBtn:hover,
+#nextBtn:hover {
+    background-color: rgba(0, 0, 0, 0.7);
+}
+
+#prevBtn {
+    left: 10px;
+}
+
+#nextBtn {
+    right: 10px;
+    /* z-index: 1000; */
+}
+
+.slider-dots {
+    position: absolute;
+    bottom: 2px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 100;
+    display: flex;
+}
+
+.slider-dot {
+    width: 10px;
+    height: 10px;
+    background-color: #bbb;
+    border-radius: 50%;
+    display: inline-block;
+    margin: 0 5px;
+    cursor: pointer;
+}
+
+.slider-dot.active {
+    background-color: #0055A4;
+}
+
+@media (max-width: 768px) {
+    #prevBtn,
+    #nextBtn {
+        font-size: 16px;
+        padding: 6px;
+        margin-top: -100px;
+    }
+
+    .slider-dots {
+        bottom: 10px;
+    }
+
+    .slider-dot {
+        width: 8px;
+        height: 8px;
+        margin: 0 4px;
+    }
+}
+
+        /* Rules section styles */
+        #rules {
+    padding: 50px 20px;
+    background-color: #f9f9f9;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+    /* height: ; */
+    border-radius: 10px;
+    
+}
+
+.Rulecontainer {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.rules-heading {
+    margin-bottom: 30px;
     color: #333;
-    font-size: 28px;
+    font-size: 24px;
     text-transform: uppercase;
     text-align: center;
 }
 
-.rules-para {
-    margin-bottom: 20px;
-    font-size: 16px;
-    color: #666;
-    text-align: center;
-}
-.rules-boxes{
+.rules-boxes {
     display: grid;
-    /* margin-left: 100px; */
-    margin-top: 70px;
-            /* justify-content: center; */
-    grid-template-columns: 200px 200px 200px;
-            /* flex-wrap: wrap; */
-            column-gap: 250px;
-        
-            row-gap: 20px;
-    
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
 }
-/* Individual rule boxes */
+
 .rule-box {
-    border: 2px solid #ccc; /* Add border to each rule box */
-    border-radius: 10px; /* Add border radius */
+    border: 2px solid #ccc;
+    border-radius: 10px;
     padding: 20px;
-    width: 400px;
-    height: 200px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Add box shadow */
-    margin-bottom: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
 .rule-box h3 {
     margin-bottom: 10px;
-    font-size: 20px;
+    font-size: 18px;
     color: #333;
     border-bottom: 2px solid #ddd;
     padding-bottom: 10px;
 }
 
 .rule-box p {
-    font-size: 16px;
+    font-size: 14px;
     color: #666;
+}
+
+@media (max-width: 768px) {
+    #rules {
+        padding: 30px 10px;
+    }
+
+    .rules-heading {
+        font-size: 20px;
+    }
+
+    .rules-boxes {
+        grid-template-columns: 1fr;
+    }
+
+    .rule-box {
+        width: 100%;
+    }
+}
+
+
+
+/*
+
+----------------------responsiveness---------------
+*/
+
+/* Responsive styling */
+@media (max-width: 768px) {
+    .navbar-right {
+        flex-direction: column;
+        align-items: flex-end;
+        position: absolute;
+        top: 60px;
+        right: 0;
+        width: 200px;
+        background-color: #fff;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        padding: 1rem;
+        display: none;
+        animation: slideInRight 0.3s ease-in-out;
+    }
+
+    .navbar-right.active {
+        display: flex;
+    }
+
+    .navbar-right li {
+        margin-left: 0;
+        margin-bottom: 1rem;
+    }
+
+    .navbar-toggle {
+        display: block;
+        cursor: pointer;
+    }
+
+    @keyframes slideInRight {
+        0% {
+            transform: translateX(100%);
+        }
+        100% {
+            transform: translateX(0);
+        }
+    }
 }
 
 
@@ -518,12 +616,20 @@
             <div class="navbar-left">
                 <img src="image/download.jpeg" alt="Logo" class="logo">
             </div>
+            <div class="navbar-toggle">
+                <i class="fa fas fa-bars"></i>
+            </div>
             <ul class="navbar-right">
                 <li><a href="#home">Home</a></li>
                 <li><a href="#about">About</a></li>
                 <li><a href="#events">Event Listing</a></li>
                 <li><a href="#rules">Student Rules</a></li>
-                <button>dashboard</button>
+                <li><a href="/signup" class="signup-button"><i class="fa fa-sign-out" aria-hidden="true"></i></a></li> <!-- Added Sign Up button -->
+                <form id="dashboard-form" action="/dashboard" method="post">
+                    <input type="hidden" name="email" value="<%= email %>">
+                    <input type="hidden" name="name" value="<%= userName %>">
+                    <button type="submit" class="dashboard-button"><i class="fa fa-dashboard" style="font-size:24px"></i></button>
+                </form>
             </ul>
         </div>
     </nav>
@@ -532,7 +638,6 @@
     <section id="home">  <h2 id="user-name">Welcome, <%= userName %>! in our Student Portal!</h2> <div class="container"> <div class="home-content"> <div class="home-image"> <img src="image/eventbg.jpeg" alt="Image"> </div> <div class="home-text"> <p>Dear students, welcome to our online portal where you can access all the information you need about upcoming events, student rules, and much more. Make sure to explore all the sections and stay updated!</p> <p>If you have any questions or need assistance, don't hesitate to contact us.</p> <div class="social-links"> <a href="#" class="social-icon"><i class="fa fa-facebook"></i></a> <a href="#" class="social-icon"><i class="fa fa-twitter"></i></a> <a href="#" class="social-icon"><i class="fa fa-instagram"></i></a> </div> </div> </div> </div> <div class="cta-buttons"> <a href="#events" class="register-button">View Events</a> <a href="#about" class="register-button">Learn More About Us</a> </div> </section>
     
     <hr>
-
     <section id="about">
         <h2>About</h2>
         <div class="container">
@@ -569,7 +674,14 @@
                         <p>Email: akarshsingh19@gmail.com</p>
                     </div>
                 </div>
-                
+                <div class="about-card">
+                    <i class="fa fa-solid fa-user"></i>
+                    <div class="about-details">
+                        <h3>pranjal khairnar</h3>
+                        <p>branch: CSE</p>
+                        <p>Email: pranjal@gmail.com</p>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
@@ -632,7 +744,6 @@
         <p style="margin-bottom: 10px; color: white;" >© 2024 MIT WPU. All rights reserved.</p>
         <button style="background-color: #007bff; color: white; border: none; padding: 10px 20px; text-align: center; text-decoration: none; display: inline-block; font-size: 16px; margin: 4px 2px; cursor: pointer; border-radius: 12px;" onclick="location.href='mailto:contact@mitwpu.edu.in'">Contact Us</button>
     </footer>
-    
 
     <script>
 
@@ -798,7 +909,16 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 });
 
+/*
 
+        --responsive logic 
+*/
+const navbarToggle = document.querySelector('.navbar-toggle');
+const navbarRight = document.querySelector('.navbar-right');
+
+navbarToggle.addEventListener('click', () => {
+    navbarRight.classList.toggle('active');
+});
 
     </script>
 

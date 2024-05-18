@@ -6,78 +6,77 @@
     <style>
         body {
             font-family: Arial, Helvetica, sans-serif;
+            background-color: #f9f9f9;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
             opacity: 0;
             transition: opacity .5s ease-in-out;
         }
         body.loaded {
             opacity: 1;
         }
-        .main{
+        .main {
             position: relative;
-            height: 500px;
-            margin-top: 300px;
-            /* margin-top: 100px; */
-            margin-left: 100px;
-            /* margin-top: ; */
-        }
-        h2{
-            /* height: 200px; */
-            /* padding-top: 100px; */
-            position: absolute;
-            left: 620px;
-            top: -60px;
-            /* padding: 50px; */
-            /* margin-top: 100px; */
+            width: 100%;
+            max-width: 400px;
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
             text-align: center;
         }
+        h2 {
+            color: #333;
+            margin-bottom: 20px;
+        }
         .container {
-            /* margin-top: 50px; */
-            width: 300px;
-            padding: 16px;
-            background-color: white;
-            margin: 0 auto;
-            margin-top: 200px;
-            /* margin-top: -200px; */
-            border: 1px solid black;
-            border-radius: 4px;
+            margin-top: 20px;
         }
         input[type=text], input[type=password] {
             width: 100%;
-            padding: 12px 20px;
+            padding: 12px;
             margin: 8px 0;
-            display: inline-block;
             border: 1px solid #ccc;
-            border-radius: 4px;
+            border-radius: 5px;
             box-sizing: border-box;
+            font-family: Arial, Helvetica, sans-serif;
         }
-        
         button[type=submit] {
             width: 100%;
-            background-color: #4CAF50;
+            background-color: #007bff;
             color: white;
-            padding: 14px 20px;
+            padding: 14px;
             margin: 8px 0;
             border: none;
-            border-radius: 4px;
+            border-radius: 5px;
             cursor: pointer;
+            font-family: Arial, Helvetica, sans-serif;
+            font-weight: bold;
         }
         button[type=submit]:hover {
-            background-color: #45a049;
+            background-color: #0056b3;
         }
         .signup-link {
-            display: block;
             text-align: center;
             margin-top: 10px;
-            text-decoration: none;
+            color: #007bff;
         }
-
-        .main i{
-            font-size: 100px;
-            /* padding-top: 100px; */
-            position: absolute;
-            top: -140px;
-
-            left: 640px;
+        .signup-link a {
+            text-decoration: none;
+            color: #007bff;
+            font-weight: bold;
+        }
+        .signup-link a:hover {
+            color: #0056b3;
+        }
+        .main i {
+            font-size: 40px;
+            color: #007bff;
+            margin-top: -40px;
         }
     </style>
     <script>
@@ -88,8 +87,8 @@
 </head>
 <body>
     <div class="main">
-        <h2>Login page</h2>
-        <i class="fa fa-solid fa-user"></i>
+        <h2>Login Page</h2>
+        <i class="fa fa-user"></i>
         <div class="container">
             <form action="/login" method="POST">
                 <label for="uname"><b>Username</b></label>
@@ -98,7 +97,7 @@
                 <input type="password" placeholder="Enter Password" name="psw" required>
                 <button type="submit">Login</button>
             </form>
-            <p class="signup-link">Don't have an account? <a href="/signup">Signup here</a> </p>
+            <p class="signup-link">Don't have an account? <a href="/signup">Signup here</a></p>
         </div>
     </div>
 </body>

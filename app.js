@@ -140,6 +140,8 @@ app.post('/signup', async (req, res) => {
 app.get('/login', (req, res) => {
   res.sendFile(path.join(__dirname, 'templates', 'login.html'));
 });
+
+
 // Login endpoint
 app.post('/login', (req, res) => {
   const { uname, psw } = req.body;
@@ -195,7 +197,7 @@ app.post('/login', (req, res) => {
               });
               break;
             case 'event_manager':
-              res.redirect(`/event-manager?name=${name}`);
+              res.redirect(`/event?name=${name}`);
               break;
             default:
               res.send('Invalid category.');
@@ -374,7 +376,44 @@ app.post('/register-event', (req, res) => {
       res.send('Registration declined.');
   }
 });
+app.post('/dashboard', (req, res) => {
+  // Assuming userEmail is available in the request body
+  const userEmail = req.body.email;
 
+  console.log('User email:', userEmail); // Log userEmail
+
+  // Fetch user details from the database based on userEmail
+  db.query('SELECT * FROM users WHERE email = ?', [userEmail], (err, userResults) => {
+      if (err) {
+          // Handle error
+          console.error('Error fetching user details:', err);
+          res.status(500).send('Internal Server Error');
+          return;
+      }
+
+      console.log('User details:', userResults); // Log userResults
+
+      // Check if userResults is empty
+      if (userResults.length === 0) {
+          console.log('User not found'); // Log user not found
+          res.status(404).send('User not found');
+          return;
+      }
+
+      // Fetch registrations associated with the user
+      db.query('SELECT * FROM registrations WHERE email = ?', [userEmail], (err, registrationResults) => {
+          if (err) {
+              // Handle error
+              console.error('Error fetching registrations:', err);
+              res.status(500).send('Internal Server Error');
+              return;
+          }
+
+          // Render the dashboard.ejs template with user and registration data
+          res.render('dashboard', { user: userResults[0], registrations: registrationResults });
+      });
+  });
+});
 
 // Server
 app.listen(PORT, () => {
