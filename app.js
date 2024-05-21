@@ -101,6 +101,17 @@ app.post('/check-duplicate', async (req, res) => {
 app.post('/signup', async (req, res) => {
   const { name, prn, email, password, category } = req.body;
 
+  // Check if email matches the required format
+  const emailRegex = /^(\d{10})@mitwpu\.edu\.in$/;
+  if (!emailRegex.test(email)) {
+    return res.status(400).send('Please enter a valid email address in the format PRN@mitwpu.edu.in.');
+  }
+
+  // Check if PRN matches the email
+  if (email.slice(0, 10) !== prn) {
+    return res.status(400).send('The entered PRN does not match the email address.');
+  }
+
   try {
     // Check for duplicate values
     const isDuplicate = await checkForDuplicate(prn, email);
@@ -109,7 +120,7 @@ app.post('/signup', async (req, res) => {
       return res.status(400).send('Credentials are already taken. Please choose another.');
     }
 
-    // If not a duplicate, proceed with signup logic
+    // If not a duplicate and email format is valid, proceed with signup logic
     const signupSql = 'INSERT INTO users (name, prn, email, password, category) VALUES (?, ?, ?, ?, ?)';
     const loginSql = 'INSERT INTO login_users (username, password) VALUES (?, ?)';
 

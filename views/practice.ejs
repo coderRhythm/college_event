@@ -58,8 +58,13 @@
             display: flex;
         }
 
+        .navbar-right ul{
+            display: flex;
+        }
+
         .navbar-right li {
             margin-right: 20px;
+            list-style-type: none;
         }
         .navbar-right button{
             /* font-size: 10px; */
@@ -135,6 +140,20 @@
 
 .navbar-right .signup-button:hover {
     background-color: #4b0082;
+}
+
+.navbar-right .close-button {
+    display: none;
+    font-size: 24px;
+    cursor: pointer;
+    margin-bottom: 20px;
+    text-align: right;
+}
+
+@media (max-width: 768px) {
+    .navbar-right .close-button {
+        display: block;
+    }
 }
         /* Home section styles */
         #home {
@@ -580,7 +599,9 @@
         display: none;
         animation: slideInRight 0.3s ease-in-out;
     }
-
+    .navbar-right ul{
+        display: block;
+    }
     .navbar-right.active {
         display: flex;
     }
@@ -610,7 +631,6 @@
 </head>
 
 <body>
-
     <nav class="navbar">
         <div class="container">
             <div class="navbar-left">
@@ -619,18 +639,23 @@
             <div class="navbar-toggle">
                 <i class="fa fas fa-bars"></i>
             </div>
-            <ul class="navbar-right">
-                <li><a href="#home">Home</a></li>
-                <li><a href="#about">About</a></li>
-                <li><a href="#events">Event Listing</a></li>
-                <li><a href="#rules">Student Rules</a></li>
-                <li><a href="/signup" class="signup-button"><i class="fa fa-sign-out" aria-hidden="true"></i></a></li> <!-- Added Sign Up button -->
-                <form id="dashboard-form" action="/dashboard" method="post">
-                    <input type="hidden" name="email" value="<%= email %>">
-                    <input type="hidden" name="name" value="<%= userName %>">
-                    <button type="submit" class="dashboard-button"><i class="fa fa-dashboard" style="font-size:24px"></i></button>
-                </form>
-            </ul>
+            <div class="navbar-right">
+                <div class="close-button">
+                    <i class="fa fas fa-times"></i>
+                </div>
+                <ul>
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#events">Event Listing</a></li>
+                    <li><a href="#rules">Student Rules</a></li>
+                    <li><a href="/signup" class="signup-button"><i class="fa fa-sign-out" aria-hidden="true"></i></a></li>
+                    <form id="dashboard-form" action="/dashboard" method="post">
+                        <input type="hidden" name="email" value="<%= email %>">
+                        <input type="hidden" name="name" value="<%= userName %>">
+                        <button type="submit" class="dashboard-button"><i class="fa fa-dashboard" style="font-size:24px"></i></button>
+                    </form>
+                </ul>
+            </div>
         </div>
     </nav>
     
@@ -915,9 +940,14 @@ document.addEventListener("DOMContentLoaded", function () {
 */
 const navbarToggle = document.querySelector('.navbar-toggle');
 const navbarRight = document.querySelector('.navbar-right');
+const closeButton = document.querySelector('.navbar-right .close-button');
 
 navbarToggle.addEventListener('click', () => {
-    navbarRight.classList.toggle('active');
+    navbarRight.classList.add('active');
+});
+
+closeButton.addEventListener('click', () => {
+    navbarRight.classList.remove('active');
 });
 
     </script>
