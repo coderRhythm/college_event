@@ -7,7 +7,6 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 const fs = require('fs');
 
-// MySQL connection
 const db = mysql.createConnection({
   host: 'localhost',
   user: 'root',
