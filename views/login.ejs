@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MIT-WPU College Administration System Login</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" href="/css/loginStyles.css">
+
+    <!-- Include SweetAlert -->
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+</head>
+<style>
+    /* General Styles */
+body,
+html {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    font-family: 'Roboto', sans-serif;
+    overflow-x: hidden;
+    scroll-behavior: smooth;
+}
+body {
+    font-family: 'Roboto', sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    /* justify-content: center; */
+    align-items: center;
+    height: 100vh;
+    background-color: #f0f0f0;
+}
+
+.login-container {
+    display: flex;
+    margin: 0 auto;
+    width: 850px;
+    height: 450px;
+    background-color: white;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 4px 25px rgba(0, 0, 0, 0.2);
+}
+
+.left-panel {
+    width: 50%;
+    height: 100%;
+    background-color: #1f2e5a;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    border-top-right-radius: 200px 225px; /* Ellipse shape */
+    border-bottom-right-radius: 200px 225px; /* Ellipse shape */
+}
+
+.left-panel h1 {
+    font-size: 28px;
+    color: white;
+    margin-bottom: 20px;
+    text-align: center;
+    z-index: 2;
+}
+
+.left-panel .logo {
+    position: relative;
+    z-index: 2;
+}
+
+.logo img {
+    width: 120px;
+    height: auto;
+}
+
+.right-panel {
+    flex: 1;
+    padding: 30px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+h2 {
+    font-size: 22px;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+p {
+    font-size: 14px;
+    color: #666;
+    margin-bottom: 20px;
+}
+
+.login-form {
+    display: flex;
+    flex-direction: column;
+}
+
+input {
+    margin-bottom: 15px;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 14px;
+    color: #333;
+}
+
+.login-btn {
+    padding: 12px;
+    background-color: #1a237e;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.login-btn:hover {
+    background-color: #0f185b;
+}
+
+.signup-link {
+    text-align: center;
+    color: #1a237e;
+    margin-top: 15px;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.signup-link:hover {
+    text-decoration: underline;
+}
+
+.copyright {
+    text-align: center;
+    font-size: 12px;
+    color: #666;
+    margin-top: 30px;
+}
+
+@media (max-width: 900px) {
+    .login-container {
+        width: 90%;
+        flex-direction: column;
+        height: auto;
+    }
+
+    .left-panel {
+        width: 100%;
+        height: 200px;
+        border-radius: 0;
+    }
+
+    .left-panel h1 {
+        font-size: 24px;
+    }
+
+    .logo img {
+        width: 80px;
+    }
+
+    .right-panel {
+        width: 100%;
+        padding: 20px;
+    }
+
+    h2 {
+        font-size: 20px;
+    }
+
+    input {
+        font-size: 16px;
+    }
+
+    .login-btn {
+        font-size: 16px;
+    }
+
+    .signup-link {
+        font-size: 16px;
+    }
+}
+
+@media (max-width: 600px) {
+    .left-panel {
+        height: 150px;
+    }
+
+    .right-panel {
+        padding: 15px;
+    }
+
+    h2 {
+        font-size: 18px;
+    }
+
+    input {
+        padding: 10px;
+        font-size: 14px;
+    }
+
+    .login-btn {
+        padding: 10px;
+        font-size: 14px;
+    }
+
+    .signup-link {
+        font-size: 14px;
+    }
+}
+
+/* Navbar Styles */
+.navbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: rgba(4, 4, 4, 0.7);
+    padding: 15px 30px;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1000;
+    height: 130px;
+    transition: background-color 0.3s;
+}
+
+.navbar:hover {
+    background-color: rgba(22, 22, 22, 0.962);
+}
+
+.logo {
+    max-width: 360px;
+    height: auto;
+}
+
+/* Navbar Right Section */
+.navbar-right {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+/* Navigation Links */
+.navbar ul {
+    list-style-type: none;
+    display: flex;
+    gap: 15px;
+    margin: 0;
+    padding: 0;
+}
+
+.navbar ul li {
+    transition: transform 0.3s;
+}
+
+.navbar ul li:hover {
+    transform: scale(1.1);
+}
+
+.navbar ul li a {
+    color: white;
+    text-decoration: none;
+    font-size: 18px;
+    padding: 10px;
+    font-weight: bold;
+    transition: color 0.3s;
+}
+
+.navbar ul li a:hover {
+    color: rgba(255, 255, 255, 0.8);
+}
+
+/* Right Buttons */
+.nav-right a {
+    color: white;
+    text-decoration: none;
+    background-color: #007bff;
+    padding: 10px 15px;
+    border-radius: 20px;
+    font-size: 18px;
+    transition: transform 0.3s, background-color 0.3s;
+}
+
+.nav-right a:hover {
+    transform: scale(1.1);
+    background-color: #0056b3;
+}
+
+/* Responsive Styles */
+.navbar-toggle {
+    display: none;
+    cursor: pointer;
+    font-size: 24px;
+    color: white;
+}
+
+/* Image Navigation Line */
+.img-navline img {
+    top: 130px;
+    position: fixed;
+    width: 100%;
+    z-index: 1000;
+}
+
+/* Responsive Menu for Mobile */
+@media (max-width: 768px) {
+    .navbar-right {
+        flex-direction: column;
+        align-items: flex-end;
+        position: absolute;
+        top: 130px;
+        right: 0;
+        width: 200px;
+        background-color: #333;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        padding: 1rem;
+        display: none;
+    }
+
+    .navbar-right.active {
+        display: flex;
+    }
+
+    .navbar ul {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .navbar-toggle {
+        display: block;
+    }
+}
+
+/* Adjustments for Smaller Screens */
+@media (max-width: 600px) {
+    .logo {
+        max-width: 200px;
+    }
+
+    .navbar ul li a {
+        font-size: 16px;
+    }
+
+    .nav-right a {
+        font-size: 16px;
+    }
+}
+
+</style>
+
+<body>
+
+    <header>
+        <div class="navbar">
+            <img src="https://mitwpu.edu.in/assets/frontend/images/mit_logo.png" alt="MIT WPU Logo" class="logo">
+            <div class="navbar-toggle"></div>
+            <div class="navbar-right">
+                <ul>
+                    <li><a href="#home">Home</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="img-navline">
+            <img src="https://mitwpu.edu.in/assets/frontend/images/header-line.png" alt="">
+        </div>
+    </header>
+
+    <div class="login-container">
+        <!-- Left Panel -->
+        <div class="left-panel">
+            <h1>Welcome to Login Portal</h1>
+            <div class="logo">
+                <img src="/image/logo.svg" alt="MIT-WPU Logo">
+            </div>
+        </div>
+        <!-- Right Panel -->
+        <div class="right-panel">
+            <h2>Login</h2>
+            <p>Please login to your account</p>
+
+            <!-- Display Error Message if Exists -->
+            <% if (typeof error !=='undefined' ) { %>
+                <div class="alert alert-danger">
+                    <i class="fas fa-exclamation-circle"></i>
+                    <%= error %>
+                </div>
+                <% } %>
+
+                    <!-- Login Form -->
+                    <form class="login-form" action="/login" method="POST" id="loginForm">
+                        <div class="input-group">
+                            <i class="fas fa-envelope"></i>
+                            <input type="email" placeholder="Enter Email" name="email" required>
+                        </div>
+                        <div class="input-group">
+                            <i class="fas fa-lock"></i>
+                            <input type="password" placeholder="Enter Password" name="password" required>
+                        </div>
+                        <button type="button" class="login-btn" onclick="showCaptchaModal()">Login</button>
+                    </form>
+
+                    <p class="signup-link" onclick="slideToSignup()">
+                        <i class="fas fa-user-plus"></i> Signup here
+                    </p>
+                    <div class="copyright">
+                        &copy; 2025 MIT-WPU
+                    </div>
+        </div>
+    </div>
+
+    <!-- JavaScript for Signup Slide -->
+    <script>
+        function slideToSignup() {
+            const loginContainer = document.querySelector('.login-container');
+            loginContainer.style.transform = 'translateX(-100%)';
+            loginContainer.style.transition = 'transform 0.5s ease-in-out';
+            setTimeout(() => {
+                window.location.href = '/signup'; // Ensure you have a signup route
+            }, 500);
+        }
+
+        // Function to show the CAPTCHA as a modal when clicking the login button
+        function showCaptchaModal() {
+            // Generate a simple arithmetic CAPTCHA
+            const num1 = Math.floor(Math.random() * 10);
+            const num2 = Math.floor(Math.random() * 10);
+            const correctAnswer = num1 + num2;
+
+            swal({
+                title: "Are You Human?",
+                text: What is ${ num1 } + ${ num2 } ?,
+                content: {
+                element: "input",
+                attributes: {
+                    placeholder: "Enter your answer",
+                    type: "number",
+                },
+            },
+                buttons: {
+                cancel: "Cancel",
+                confirm: {
+                    text: "Verify",
+                    closeModal: false // Don't close immediately on confirm
+                }
+            }
+            }).then(userAnswer => {
+                if (userAnswer === null) {
+                    // User canceled the CAPTCHA
+                    return false;
+                }
+
+                // Verify the CAPTCHA answer
+                if (parseInt(userAnswer) === correctAnswer) {
+                    swal({
+                        title: "Verified!",
+                        text: "You are not a bot. Submitting form...",
+                        icon: "success",
+                        buttons: false,
+                        timer: 1500
+                    }).then(() => {
+                        // Submit the form if CAPTCHA is correct
+                        document.getElementById('loginForm').submit();
+                    });
+                } else {
+                    swal({
+                        title: "Incorrect Answer!",
+                        text: "Please try again.",
+                        icon: "error",
+                        button: "Retry"
+                    });
+                }
+            });
+        }
+
+        // Display success alert if login is successful
+        <% if (typeof success !== 'undefined' && success) { %>
+            document.addEventListener('DOMContentLoaded', () => {
+                swal({
+                    title: "Login Successful!",
+                    text: "You will be redirected shortly...",
+                    icon: "success",
+                    buttons: false,
+                    timer: 2000
+                }).then(() => {
+                    // Redirect to the specific category page
+                    <% if (category === 'student') { %>
+                        window.location.href = '/student';
+                    <% } else if (category === 'faculty') { %>
+                        window.location.href = '/faculty';
+                    <% } else if (category === 'eventMaker') { %>
+                        window.location.href = '/event';
+                    <% } else if (category === 'adminPage') { %>
+                        window.location.href = '/admin/events';
+                    <% } else { %>
+                        window.location.href = '/';
+                    <% } %>
+                });
+            });
+        <% } %>
+
+        // Display error alert if login is unsuccessful
+        <% if (typeof error !== 'undefined' && error) { %>
+            document.addEventListener('DOMContentLoaded', () => {
+                swal({
+                    title: "Login Failed!",
+                    text: "<%= error %>",
+                    icon: "error",
+                    button: "Try Again"
+                });
+            });
+        <% } %>
+    </script>
+</body>
+
+</html>
